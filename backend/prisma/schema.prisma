@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+  posts Post[]
+}
+
+enum ChallengeType {
+  DAILY
+  COMMON
+}
+
+model Challenge {
+  id        Int           @id @default(autoincrement())
+  title     String
+  timestamp Int
+  date      String?
+  post      Post[]
+  video     Video         @relation(fields: [videoId], references: [uuid])
+  videoId   String        @unique
+  type      ChallengeType @default(COMMON)
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  timestamp   Int
+  title       String
+  score       Int
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    Int
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId Int
+  video       Video     @relation(fields: [videoId], references: [uuid])
+  videoId     String    @unique
+  reactions   Int       @default(0)
+}
+
+model Video {
+  id        Int        @id @default(autoincrement())
+  uuid      String     @unique
+  path      String
+  post      Post?
+  challenge Challenge?
+}

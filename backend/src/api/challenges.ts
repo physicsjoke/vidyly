@@ -17,10 +17,10 @@ challengesRouter.get("/daily", async (req, res) => {
       res.json(challenge);
       return;
     }
-    res.sendStatus(404);
+    res.status(404);
     res.end();
   } catch (err) {
-    res.sendStatus(500);
+    res.status(500);
     res.end();
     return;
   }
@@ -35,7 +35,7 @@ challengesRouter.get("/", async (req, res) => {
     });
     res.json(challenges);
   } catch (err) {
-    res.sendStatus(500);
+    res.status(500);
     res.end();
     return;
   }
@@ -61,7 +61,7 @@ challengesRouter.get("/:id/leaders", async (req, res) => {
       .sort((a, b) => b.score - a.score);
     res.json(leaderboard);
   } catch (err) {
-    res.sendStatus(500);
+    res.status(500);
     res.end();
     return;
   }

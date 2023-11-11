@@ -23,7 +23,7 @@ postsRouter.get("/", async (req, res) => {
     res.json(posts);
     return;
   } catch (err) {
-    res.sendStatus(500);
+    res.status(500);
     res.end();
     return;
   }
@@ -34,7 +34,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
     const { challengeId, authorId, videoUuid } = req.body;
     console.log({ challengeId, authorId, videoUuid, fp: req.file?.path });
     if (req.file?.path == null) {
-      res.sendStatus(400);
+      res.status(400);
       res.json({
         status: "Upload failed",
       });
@@ -46,7 +46,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
       },
     });
     if (challenge == null) {
-      res.sendStatus(400);
+      res.status(400);
       res.json({
         status: "Challenge not found",
       });
@@ -59,7 +59,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
       },
     });
     if (existingPost != null) {
-      res.sendStatus(400);
+      res.status(400);
       res.json({
         status: "Challenge has been already completed before",
       });
@@ -86,7 +86,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
     res.json(post);
   } catch (err) {
     console.log(err);
-    res.sendStatus(500);
+    res.status(500);
     res.end();
     return;
   }

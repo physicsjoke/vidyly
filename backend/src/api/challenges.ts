@@ -41,4 +41,30 @@ challengesRouter.get("/", async (req, res) => {
   }
 });
 
+challengesRouter.get("/:id/leaders", async (req, res) => {
+  try {
+    const posts = await DB.prisma.post.findMany({
+      where: {
+        challengeId: Number(req.params.id),
+      },
+      include: {
+        author: true,
+      },
+    });
+    const leaderboard = posts
+      .map((post) => {
+        return {
+          score: post.score,
+          name: post.author.name,
+        };
+      })
+      .sort((a, b) => b.score - a.score);
+    res.json(posts);
+  } catch (err) {
+    res.sendStatus(500);
+    res.end();
+    return;
+  }
+});
+
 export default challengesRouter;

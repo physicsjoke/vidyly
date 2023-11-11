@@ -4,8 +4,7 @@ import DB, { startPrismaClient } from "./db";
 import apiRouter from "./api/router";
 
 const app: Express = express();
-// const port = Number(process.env.NODE_LOCAL_PORT);
-const port = 5001;
+const port = Number(process.env.NODE_LOCAL_PORT);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

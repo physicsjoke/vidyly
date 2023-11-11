@@ -1,8 +1,8 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
 import DB from "../db";
-import { timestampToDate } from "../utils/timestampToDate";
 import { mediaPath } from "../utils/mediaPath";
+import videoUpload from "../videoUpload";
 
 const postsRouter = express.Router();
 
@@ -19,7 +19,7 @@ postsRouter.get("/", async (req, res) => {
         author: true,
       },
     });
-    // posts.sort((a, b) => b.reactions - a.reactions);
+    posts.sort((a, b) => b.reactions - a.reactions);
     res.json(posts);
     return;
   } catch (err) {
@@ -29,40 +29,47 @@ postsRouter.get("/", async (req, res) => {
   }
 });
 
-postsRouter.post("/", async (req, res) => {
+postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
   try {
-    const { challengeId, authorId, video } = req.body;
+    const { challengeId, authorId, videoUuid } = req.body;
+    if (req.file?.path == null) {
+      res.sendStatus(400);
+      res.json({
+        status: "Upload failed",
+      });
+      return;
+    }
     const challenge = await DB.prisma.challenge.findUnique({
       where: {
-        id: challengeId,
+        id: Number(challengeId),
       },
     });
     if (challenge == null) {
-      res.sendStatus(404);
-      res.end();
+      res.sendStatus(400);
+      res.json({
+        status: "Challenge not found",
+      });
       return;
     }
     const existingPost = await DB.prisma.post.findFirst({
       where: {
-        authorId,
-        challengeId,
+        authorId: Number(authorId),
+        challengeId: Number(challengeId),
       },
     });
     if (existingPost != null) {
+      res.sendStatus(400);
       res.json({
         status: "Challenge has been already completed before",
       });
       return;
     }
-
     // TODO service through video to stick & save
     let score = Math.min(Math.floor(Math.random() * 100 + 1), 100);
-
-    const rawVideoId = uuidv4();
     await DB.prisma.video.create({
       data: {
-        uuid: rawVideoId,
-        path: mediaPath(rawVideoId),
+        uuid: videoUuid,
+        path: mediaPath(videoUuid),
       },
     });
     const post = await DB.prisma.post.create({
@@ -70,13 +77,14 @@ postsRouter.post("/", async (req, res) => {
         timestamp: (Date.now() / 1000) | 0,
         title: challenge.title,
         score,
-        authorId,
-        challengeId,
-        videoId: rawVideoId,
+        authorId: Number(authorId),
+        challengeId: Number(challengeId),
+        videoId: videoUuid,
       },
     });
     res.json(post);
   } catch (err) {
+    console.log(err);
     res.sendStatus(500);
     res.end();
     return;

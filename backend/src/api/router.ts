@@ -8,11 +8,11 @@ const SECRET = process.env.SAMPLE_SECRET;
 
 // simple secret auth
 apiRouter.use(function (req, res, next) {
-  //   if (req.headers.authorization !== SECRET) {
-  //     res.sendStatus(403);
-  //     res.end();
-  //     return;
-  //   }
+  if (req.headers.authorization !== SECRET) {
+    res.sendStatus(403);
+    res.end();
+    return;
+  }
   next();
 });
 

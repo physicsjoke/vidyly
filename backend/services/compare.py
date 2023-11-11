@@ -28,6 +28,9 @@ def process_video():
         while cap.isOpened() and cap2.isOpened():
             ret, frame = cap.read()
             ret2, frame2 = cap2.read()
+            
+            if ret == False: break
+            if ret2 == False: break
 
             # Recolor images to RGB
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -67,9 +70,7 @@ def process_video():
 
             # After the while loop, calculate the average score
             average_score = sum(scores) / len(scores) if scores else 0
-            
-            if average_score > 0 and abs(lastHighScore - average_score) > 20:
-                lastHighScore = average_score
+            lastHighScore = average_score
             
         cap.release()
         cap2.release()

@@ -20,6 +20,7 @@ challengesRouter.get("/daily", async (req, res) => {
     res.status(404);
     res.end();
   } catch (err) {
+    console.log("/api/challenges/daily", err);
     res.status(500);
     res.end();
     return;
@@ -35,6 +36,7 @@ challengesRouter.get("/", async (req, res) => {
     });
     res.json(challenges);
   } catch (err) {
+    console.log("/api/challenges", err);
     res.status(500);
     res.end();
     return;
@@ -61,6 +63,7 @@ challengesRouter.get("/:id/leaders", async (req, res) => {
       .sort((a, b) => b.score - a.score);
     res.json(leaderboard);
   } catch (err) {
+    console.log("/api/challenges/:id/leaders", err);
     res.status(500);
     res.end();
     return;

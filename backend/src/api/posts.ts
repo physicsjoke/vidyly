@@ -23,6 +23,7 @@ postsRouter.get("/", async (req, res) => {
     res.json(posts);
     return;
   } catch (err) {
+    console.log("/api/posts", err);
     res.status(500);
     res.end();
     return;
@@ -39,7 +40,6 @@ postsRouter.post(
   async (req, res) => {
     try {
       const { challengeId, authorId, videoUuid } = req.body;
-      console.log({ challengeId, authorId, videoUuid, fp: req.file?.path });
       if (req.file?.path == null) {
         res.status(400);
         res.json({
@@ -92,7 +92,7 @@ postsRouter.post(
       });
       res.json(post);
     } catch (err) {
-      console.log(err);
+      console.log("/api/posts/upload", err);
       res.status(500);
       res.end();
       return;

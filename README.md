@@ -4,20 +4,24 @@ A social media platform, where users participate in daily physical activities, r
 
 AI fueled motion analysis.
 
+**To sum it all up.** This isn't just an idea; it's a fully functional product. Experience it for yourself – Vidyly challenges you to give it a try! Let's get healthy together. 
+
 ## Problem statement
 
 People are getting unhealthy rapidly. The health expenditure to GDP ratio in the OECD is 9.2%, while in the USA it is 16.6%. There is more spending on health issues than on preventing sickness. Both children and adults engage in sedentary activities, and consuming social media has become a convenient and habitual behavior. 
 
 Childhood obesity is at all time high. There is a real global health crisis.
 
-Most popular TikTok user base 25% are 10-19 years olds. Snapchat has 19,7% users aged 13-17, and 18-24 taking a whooping 38.1%.
-
 ## Audience
 
-Target audience is 6-19 year olds
-Loves to consume short online content
-CENSIS report revealed 95% have smartphone access
-Enjoy playing and competing with friends
+- Target audience is 6-19 year olds
+- Loves to consume short online content
+- CENSIS report revealed 95% have smartphone access
+- Enjoy playing and competing with friends
+
+
+_Most popular TikTok user base 25% are 10-19 years olds._
+_Snapchat has 19,7% users aged 13-17, and 18-24 taking a whooping 38.1%._
 
 ## Why Vidyly?
 
@@ -36,6 +40,15 @@ Enjoy playing and competing with friends
 `Node.js` backend written in `TypeScript`, compiled to Javascript for production. API served via `express`, keeping data in `MySQL`, connected via `Prisma ORM`, analyzed with `Python` and `OpenCV AI`. And of course used by clients on their phones with the help of `React Native`. Designs and flows kep in `Figma` and `Whimsical`. 
 
 Simple, clean and with a lot of room for scalablilty.
+## Demo
+
+[Demo video](https://emp.lv/full2.mp4)
+
+![image](./aifootage.gif)
+
+![image](./appdemo.gif)
+
+![image](./activity-types.gif)
 
 ### Flowchart
 

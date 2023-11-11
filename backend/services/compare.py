@@ -58,7 +58,7 @@ def process_video():
             total_distance, average_distance = calculate_distance(results.pose_landmarks, results2.pose_landmarks)
 
             # If the total distance is below the threshold, increment the counter
-            threshold_distance = 2.8  # Adjust this value as needed
+            threshold_distance = 3.5  # Adjust this value as needed
             if total_distance < threshold_distance:
                 close_frames += 1
 

@@ -1,21 +1,75 @@
-DANCE Social app
+# VIDYLY
 
-Made with tech:
-- node.js
-- express
-- prisma ORM
-- MySQL
-- React Native
-- Figma
-- Python3
-- OpenCV Python
+A social media platform, where users participate in daily physical activities, receive scores based on how good they replicate moves and compete with friends. 
 
-### Dance move analyzer
+AI fueled motion analysis.
 
-This is done with python script.
+## Problem statement
 
-#### Dependencies
+People are moving less than anytime before in history. More and more money is spent for healing than prevention. Mental issues are rising fast.
 
-Python3, pip, libs: ["opencv-python", "mediapipe"]
+Childhood obesity is at all time high. There is a real global health crisis.
 
-Testable with a cmd `node "/Users/emplv/Projects/sticktok/testpyvid.js"`
+Most popular TikTok user base 25% are 10-19 years olds. Snapchat has 19,7% users aged 13-17, and 18-24 taking a whooping 38.1%.
+
+## Audience
+
+Target audience is 6-19 year olds
+Loves to consume short online content
+CENSIS report revealed 95% have smartphone access
+Enjoy playing and competing with friends
+
+## Why Vidyly?
+
+>A daily activity challenge app where users share videos, compete for accuracy and view friends' submissions.
+
+- Stay motivated and compete with your friends.
+- Participate in daily challenge
+- Engage in physical activities before consuming content.
+- Accessible: **all you need is a phone**.
+- Promote natural movement.
+- Enhance interaction with friends through daily challenges. Who is the best?
+- Aim to be at the top of the leaderboard.
+
+## Tech stack
+
+`Node.js` backend written in `TypeScript`, compiled to Javascript for production. API served via `express`, keeping data in `MySQL`, connected via `Prisma ORM`, analyzed with `Python` and `OpenCV AI`. And of course used by clients on their phones with the help of `React Native`. Designs and flows kep in `Figma` and `Whimsical`. 
+
+Simple, clean and with a lot of room for scalablilty.
+
+### Flowchart
+
+https://whimsical.com/feed-9LVTMnPWcJzmv97tRinfJJ
+
+![image](./flowchart.png)
+
+## Dev notes
+
+### Local setup
+
+Local backend needs `node.js` and `MySQL`. That's it, well therethen there's the infinite `node_modules` hope, but meh - that's a broader topic.
+
+**All local**
+
+0. `cd backend` and have `MySQL` running
+1. Install dependencies `npm i`
+2. Copy and update variables in `cp example.env .env`
+3. Update `Prisma client` to your machine with `npx prisma generate`
+4. Run the migrations and seed `npx prisma migrate reset -y`
+5. Finally build `npm run build` and serve with `npm run start`
+6. Also do the setup the **analyzer** for real scores
+
+**Docker**
+
+0. `cd backend`
+1. Run docker compose with `docker compose up -d`
+
+### To test analyzer
+
+1. Install `Python 3.12`, `opencv-python` & `mediapipe` libs. Needs to have `ffmpeg` and a few other things, that msot probably are already installed by default.
+2. Check for media file paths at `./testpyvid.js`
+3. Test the `python-in-node` execution with simple command 
+```
+node testpyvid.js
+```
+

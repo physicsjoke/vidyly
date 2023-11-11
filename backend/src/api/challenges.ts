@@ -14,7 +14,22 @@ challengesRouter.get("/daily", async (req, res) => {
       },
     });
     if (challenge != null) {
-      res.json(challenge);
+      let completed = false;
+      try {
+        const userPost = await DB.prisma.post.findFirst({
+          where: {
+            challengeId: challenge.id,
+            authorId: 1,
+          },
+        });
+        if (userPost != null) {
+          completed = true;
+        }
+      } catch (err) {}
+      res.json({
+        ...challenge,
+        completed,
+      });
       return;
     }
     res.status(404);

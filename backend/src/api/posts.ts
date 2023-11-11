@@ -65,10 +65,10 @@ postsRouter.post(
           challengeId: Number(challengeId),
         },
       });
-      if (existingPost != null) {
+      if (existingPost != null && challenge.type === "DAILY") {
         res.status(400);
         res.json({
-          status: "Challenge has been already completed before",
+          status: "Daily challenge has been already completed before",
         });
         return;
       }

@@ -1,3 +1,4 @@
+![](./vidyly-logo-md.png)
 # VIDYLY
 
 A social media platform, where users participate in daily physical activities, receive scores based on how good they replicate moves and compete with friends. 
@@ -82,3 +83,8 @@ Local backend needs `node.js` and `MySQL`. That's it, well therethen there's the
 1. Install `Python 3.12`, `opencv-python` & `mediapipe` libs. Needs to have `ffmpeg` and a few other things, that msot probably are already installed by default.
 2. Check for media file paths at `./testpyvid.js`
 3. Test the `python-in-node` execution with simple command `node testpyvid.js`
+```
+```
+
+
+![](./vidyly-1.png)

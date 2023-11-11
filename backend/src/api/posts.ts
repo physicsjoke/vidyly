@@ -32,6 +32,7 @@ postsRouter.get("/", async (req, res) => {
 postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
   try {
     const { challengeId, authorId, videoUuid } = req.body;
+    console.log({ challengeId, authorId, videoUuid, fp: req.file?.path });
     if (req.file?.path == null) {
       res.sendStatus(400);
       res.json({

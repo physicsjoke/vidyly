@@ -59,19 +59,20 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
         challengeId: Number(challengeId),
       },
     });
-    if (existingPost != null && challenge.type === "DAILY") {
-      res.status(400);
-      res.json({
-        status: "Daily challenge has been already completed before",
-      });
-      return;
-    }
+    // if (existingPost != null && challenge.type === "DAILY") {
+    //   res.status(400);
+    //   res.json({
+    //     status: "Daily challenge has been already completed before",
+    //   });
+    //   return;
+    // }
 
     // Currently fail safe to backup result by random
     let score = 100;
     try {
       score = analyzeScore(challenge.videoId, videoUuid);
     } catch (err) {
+      console.log(err);
       score = Math.min(Math.floor(Math.random() * 100 + 1), 100);
     }
 
@@ -84,6 +85,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
     const post = await DB.prisma.post.create({
       data: {
         timestamp: (Date.now() / 1000) | 0,
+        // @ts-ignore
         title: challenge.title,
         score,
         authorId: Number(authorId),

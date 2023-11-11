@@ -6,7 +6,7 @@ AI fueled motion analysis.
 
 ## Problem statement
 
-People are moving less than anytime before in history. More and more money is spent for healing than prevention. Mental issues are rising fast.
+People are getting unhealthy rapidly. The health expenditure to GDP ratio in the OECD is 9.2%, while in the USA it is 16.6%. There is more spending on health issues than on preventing sickness. Both children and adults engage in sedentary activities, and consuming social media has become a convenient and habitual behavior. 
 
 Childhood obesity is at all time high. There is a real global health crisis.
 

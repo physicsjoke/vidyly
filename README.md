@@ -72,4 +72,3 @@ Local backend needs `node.js` and `MySQL`. That's it, well therethen there's the
 ```
 node testpyvid.js
 ```
-

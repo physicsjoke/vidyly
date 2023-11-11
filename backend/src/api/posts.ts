@@ -66,9 +66,14 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
       });
       return;
     }
-    // TODO service through video to stick & save
-    let score = Math.min(Math.floor(Math.random() * 100 + 1), 100);
-    // const score = analyzeScore(challenge.videoId, videoUuid);
+
+    // Currently fail safe to backup result by random
+    let score = 100;
+    try {
+      score = analyzeScore(challenge.videoId, videoUuid);
+    } catch (err) {
+      score = Math.min(Math.floor(Math.random() * 100 + 1), 100);
+    }
 
     await DB.prisma.video.create({
       data: {

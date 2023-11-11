@@ -16,6 +16,7 @@ async function main() {
     "d24c4287-1e9e-4246-9938-f76d40bc3e2d", // common [9]
     "db44f48d-f6b5-40bd-b5ca-dc7c8f4dadb0", // common [10]
     "db44f48d-f6b5-40bd-b5ca-dc7c8f4dadb1", // common [11]
+    "dc4826c6-34e4-45fc-ab8f-ef789da19f36", // common real [12]
   ]) {
     const video = await prisma.video.upsert({
       where: { uuid: videoId },
@@ -97,6 +98,17 @@ async function main() {
       timestamp: 1699908050,
       date: "2023/11/12",
       videoId: videos[11].uuid,
+    },
+  });
+  challenges.push(tempChall);
+  tempChall = prisma.challenge.upsert({
+    where: { videoId: videos[12].uuid },
+    update: {},
+    create: {
+      title: "Handyman",
+      timestamp: 1699715334,
+      date: "2023/11/11",
+      videoId: videos[12].uuid,
     },
   });
   challenges.push(tempChall);

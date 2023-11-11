@@ -79,7 +79,7 @@ async function main() {
     },
   });
   challenges.push(tempChall);
-  tempChall = prisma.challenge.upsert({
+  tempChall = await prisma.challenge.upsert({
     where: { videoId: videos[10].uuid },
     update: {},
     create: {
@@ -90,7 +90,7 @@ async function main() {
     },
   });
   challenges.push(tempChall);
-  tempChall = prisma.challenge.upsert({
+  tempChall = await prisma.challenge.upsert({
     where: { videoId: videos[11].uuid },
     update: {},
     create: {
@@ -101,7 +101,7 @@ async function main() {
     },
   });
   challenges.push(tempChall);
-  tempChall = prisma.challenge.upsert({
+  tempChall = await prisma.challenge.upsert({
     where: { videoId: videos[12].uuid },
     update: {},
     create: {

@@ -1,14 +1,14 @@
 {
-  "name": "sticktok",
-  "version": "1.0.0",
-  "description": "",
+  "name": "vidyly",
+  "version": "0.1.0",
+  "description": "A social media platform, where users participate in daily physical activities, receive scores based on how good they replicate moves and compete with friends.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "concurrently \"nodemon -q dist/index.js\" \"npx tsc --watch\""
   },
-  "author": "",
+  "author": "Vidyly team",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.5.2",

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-// singleton ref
+// singleton ref when starting server
 const DB: {
   prisma: PrismaClient;
 } = {

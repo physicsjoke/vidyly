@@ -1,8 +1,7 @@
 import express from "express";
-import { v4 as uuidv4 } from "uuid";
 import DB from "../db";
 import { mediaPath } from "../utils/mediaPath";
-import videoUpload from "../videoUpload";
+import videoFileUpload from "../videoFileUpload";
 import analyzeScore from "../utils/analyzeScore";
 
 const postsRouter = express.Router();
@@ -31,7 +30,7 @@ postsRouter.get("/", async (req, res) => {
   }
 });
 
-postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
+postsRouter.post("/", videoFileUpload.single("video"), async (req, res) => {
   try {
     const { challengeId, authorId, videoUuid } = req.body;
     if (req.file?.path == null) {
@@ -59,13 +58,13 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
         challengeId: Number(challengeId),
       },
     });
-    // if (existingPost != null && challenge.type === "DAILY") {
-    //   res.status(400);
-    //   res.json({
-    //     status: "Daily challenge has been already completed before",
-    //   });
-    //   return;
-    // }
+    if (existingPost != null && challenge.type === "DAILY") {
+      res.status(400);
+      res.json({
+        status: "Daily challenge has been already completed before",
+      });
+      return;
+    }
 
     // Currently fail safe to backup result by random
     let score = 100;
@@ -73,6 +72,7 @@ postsRouter.post("/", videoUpload.single("video"), async (req, res) => {
       score = analyzeScore(challenge.videoId, videoUuid);
     } catch (err) {
       console.log(err);
+      // fail safe to generate score and save post, removed for prod
       score = Math.min(Math.floor(Math.random() * 100 + 1), 100);
     }
 

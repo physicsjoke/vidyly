@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", async (req: Request, res: Response) => {
-  res.send("Hello Stick'er");
+  res.send("Vidyly");
 });
 app.use("/media", express.static("media"));
 app.use("/api", apiRouter);

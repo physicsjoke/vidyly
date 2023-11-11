@@ -10,6 +10,9 @@ async function main() {
     "0f6a6377-8609-4a61-a7e6-41a733bd27bb", // daily
     "0f6a6377-8609-4a61-a7e6-41a733bd27b1", // common
     "85b2d019-654c-44da-9dba-e8bd683efc33", // first post
+    "441bd88b-86d4-4314-bf28-ee8e3fac739c", // common
+    "d24c4287-1e9e-4246-9938-f76d40bc3e2d", // common
+    "db44f48d-f6b5-40bd-b5ca-dc7c8f4dadb0", // common
   ]) {
     const video = await prisma.video.upsert({
       where: { uuid: videoId },
@@ -67,6 +70,36 @@ async function main() {
       timestamp: 1699635600,
       date: "2023/11/10",
       videoId: videos[4].uuid,
+    },
+  });
+  await prisma.challenge.upsert({
+    where: { videoId: videos[6].uuid },
+    update: {},
+    create: {
+      title: "Wiggly",
+      timestamp: 1699705050,
+      date: "2023/11/11",
+      videoId: videos[6].uuid,
+    },
+  });
+  await prisma.challenge.upsert({
+    where: { videoId: videos[7].uuid },
+    update: {},
+    create: {
+      title: "Energetic vibe",
+      timestamp: 1699705080,
+      date: "2023/11/11",
+      videoId: videos[7].uuid,
+    },
+  });
+  await prisma.challenge.upsert({
+    where: { videoId: videos[8].uuid },
+    update: {},
+    create: {
+      title: "Balance",
+      timestamp: 1699705090,
+      date: "2023/11/11",
+      videoId: videos[8].uuid,
     },
   });
   // Users

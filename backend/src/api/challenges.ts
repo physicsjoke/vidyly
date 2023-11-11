@@ -59,7 +59,7 @@ challengesRouter.get("/:id/leaders", async (req, res) => {
         };
       })
       .sort((a, b) => b.score - a.score);
-    res.json(posts);
+    res.json(leaderboard);
   } catch (err) {
     res.sendStatus(500);
     res.end();

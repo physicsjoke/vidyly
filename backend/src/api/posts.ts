@@ -19,7 +19,7 @@ postsRouter.get("/", async (req, res) => {
         author: true,
       },
     });
-    posts.sort((a, b) => b.reactions - a.reactions);
+    posts.sort((a, b) => b.timestamp - a.timestamp);
     res.json(posts);
     return;
   } catch (err) {

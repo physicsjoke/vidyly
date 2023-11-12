@@ -1,117 +1,93 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+// import {UploadContent} from './views/uploadContent';
+import {userColors} from './lib/colors';
+import {Feed} from './views/feed';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {createStackNavigator} from '@react-navigation/stack';
+import {SelectChallenge} from './views/selectChallenge';
+import {ViewVideo} from './views/viewVideo';
+import {CameraView} from './views/cameraView';
+import {useCameraPermission} from 'react-native-vision-camera';
+import {SuccessView} from './views/success';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+type RootStackParamList = {
+  feed: undefined;
+  select: undefined;
+  video: undefined;
+  camera: undefined;
+  success: undefined;
+};
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const {hasPermission, requestPermission} = useCameraPermission();
+  // const {hasMicPermission, requestMicPermission} = useMicrophonePermission();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+  useEffect(() => {
+    if (!hasPermission) {
+      requestPermission();
+    }
+  }, [hasPermission, requestPermission]);
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <NavigationContainer>
+      <SafeAreaView style={styles.main}>
+        <StatusBar barStyle={'light-content'} backgroundColor={userColors.bg} />
+        <View style={styles.container}>
+          <Stack.Navigator
+            screenOptions={{
+              header: () => null,
+              cardStyle: {
+                backgroundColor: userColors.bg,
+              },
+            }}>
+            <Stack.Screen name="feed" component={Feed} />
+            <Stack.Screen
+              name="select"
+              component={SelectChallenge}
+              options={{
+                presentation: 'modal',
+              }}
+            />
+            <Stack.Screen
+              name="video"
+              component={ViewVideo}
+              options={{
+                presentation: 'modal',
+              }}
+            />
+            <Stack.Screen
+              name="camera"
+              component={CameraView}
+              options={{
+                presentation: 'modal',
+              }}
+            />
+            <Stack.Screen
+              name="success"
+              component={SuccessView}
+              options={{
+                presentation: 'modal',
+              }}
+            />
+          </Stack.Navigator>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  main: {
+    backgroundColor: userColors.bg,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  container: {
+    // flexGrow: 1,
+    height: '100%',
   },
 });
 
